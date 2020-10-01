@@ -1,38 +1,34 @@
 let router = require("express").Router();
-let Trip = require("../db").import("../models/trip");
+let Activity = require("../db").import("../models/activity");
 let validateSession = require("../middleware/validate-session");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 router.post("/", validateSession, (req, res) => {
-  const tripEntry = {
-    title: req.body.trip.title,
-    departLoc: req.body.trip.departLoc,
-    arrivalLoc: req.body.trip.arrivalLoc,
-    startDate: req.body.trip.startDate,
-    endDate: req.body.trip.endDate,
-    tripId: req.body.trip.tripId,
-    travelMethod: req.body.trip.travelMethod,
-    reason: req.body.trip.reason,
-    description: req.body.trip.description
+  const activityEntry = {
+    title: req.body.activity.title,
+    startDate: req.body.activity.startDate,
+    endDate: req.body.activity.endDate,
+    TripId: req.body.activity.TripId,
+    description: req.body.activity.description
   };
 
-  Trip.create(tripEntry)
-    .then((trip) => res.status(200).json(trip))
+  Activity.create(activityEntry)
+    .then((activity) => res.status(200).json(activity))
     .catch((err) => res.status(500).json({ error: err }));
 });
 
 router.delete("/:id", validateSession, (req, res) => {
   const query = { where: { id: req.params.id } };
-  Trip.destroy(query)
+  Activity.destroy(query)
     .then((recordsChanged) => {
       if (recordsChanged !== 0) {
         res.status(200).json({
-          message: "trip deleted!",
+          message: "activity deleted!",
         });
       } else {
         res.status(200).json({
-          message: "trip not found",
+          message: "activity not found",
         });
       }
     })
@@ -41,26 +37,24 @@ router.delete("/:id", validateSession, (req, res) => {
 
 router.put("/:id", validateSession, (req, res) => {
   const query = { where: { id: req.params.id } };
-  const tripEntry = {
-    fromLocation: req.body.trip.fromLocation,
-    toLocation: req.body.trip.toLocation,
-    fromDate: req.body.trip.fromDate,
-    toDate: req.body.trip.toDate,
-    travelType: req.body.trip.travelType,
-    tripType: req.body.trip.tripType,
-    userId: req.user.id
+  const activityEntry = {
+    title: req.body.activity.title,
+    startDate: req.body.activity.startDate,
+    endDate: req.body.activity.endDate,
+    TripId: req.body.activity.TripId,
+    description: req.body.activity.description
   };
 
-  Trip.update(tripEntry, query)
+  Activity.update(activityEntry, query)
     .then((recordsChanged) => {
         console.log(recordsChanged)
       if (recordsChanged[0] !== 0 ) {
         res.status(200).json({
-          message: "trip updated!",
+          message: "activity updated!",
         });
       } else {
         res.status(200).json({
-          message: "trip not found",
+          message: "activity not found",
         });
       }
     })
@@ -69,16 +63,16 @@ router.put("/:id", validateSession, (req, res) => {
 
 router.get("/", validateSession, (req, res) => {
   const query = {where : { userId: req.user.id }}
-  Trip.findAll(query)
-    .then((trips) => res.status(200).json(trips))
+  Activity.findAll(query)
+    .then((activitys) => res.status(200).json(activitys))
     .catch((err) => res.status(500).json({ error: err }));
 });
 
 router.get("/:id", validateSession, (req, res) => {
   const query = { where: { id: req.params.id } };
 
-  Trip.findOne(query)
-    .then((trip) => res.status(200).json(trip))
+  Activity.findOne(query)
+    .then((activity) => res.status(200).json(activity))
     .catch((err) => res.status(500).json({ error: err }));
 });
 

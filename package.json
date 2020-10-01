@@ -1,18 +1,8 @@
 {
-  "name": "trip_it",
+  "name": "tripp_it_v2_server",
   "version": "1.0.0",
-  "description": "back-end",
+  "description": "Back End Package for Tripp_It_v2",
   "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon"
-  },
-  "author": "Amruta, Aalan, Nate",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.4"
-  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -21,5 +11,19 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.3.2",
     "sequelize": "^5.21.1"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aalanamiranda/tripp_it_v2_server.git"
+  },
+  "author": "Aalan Miranda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aalanamiranda/tripp_it_v2_server/issues"
+  },
+  "homepage": "https://github.com/aalanamiranda/tripp_it_v2_server"
 }

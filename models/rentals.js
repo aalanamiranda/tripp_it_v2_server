@@ -1,16 +1,12 @@
 const sequelize = require("../db");
 
 module.exports = (sequelize, DataTypes) => {
-    const Trip = sequelize.define('trip', {
-        title: {
+    const Rental = sequelize.define('rental', {
+        agency: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        departLoc: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        arrivalLoc: {
+        item: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -22,22 +18,18 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: false
         },
-        tripId: {
+        TripId: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true 
         },
-        travelMethod: {
-            type: DataTypes.STRING,
-            allowNull: true
-        },
-        reason: {
-            type: DataTypes.STRING,
+        AcitivyId: {
+            type: DataTypes.INTEGER,
             allowNull: true
         },
         description: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: true
         }
     })
-    return Trip;
+    return Activity;
 }

@@ -1,38 +1,36 @@
 let router = require("express").Router();
-let Trip = require("../db").import("../models/trip");
+let Rental = require("../db").import("../models/rental");
 let validateSession = require("../middleware/validate-session");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 router.post("/", validateSession, (req, res) => {
-  const tripEntry = {
-    title: req.body.trip.title,
-    departLoc: req.body.trip.departLoc,
-    arrivalLoc: req.body.trip.arrivalLoc,
-    startDate: req.body.trip.startDate,
-    endDate: req.body.trip.endDate,
-    tripId: req.body.trip.tripId,
-    travelMethod: req.body.trip.travelMethod,
-    reason: req.body.trip.reason,
-    description: req.body.trip.description
+  const rentalEntry = {
+    agency: req.body.rental.agency,
+    item: req.body.rental.item,
+    startDate: req.body.rental.startDate,
+    endDate: req.body.rental.endDate,
+    TripId: req.body.rental.TripId,
+    ActivityId: req.body.rental.ActivityId,
+    description: req.body.user.description
   };
 
-  Trip.create(tripEntry)
-    .then((trip) => res.status(200).json(trip))
+  Rental.create(rentalEntry)
+    .then((rental) => res.status(200).json(rental))
     .catch((err) => res.status(500).json({ error: err }));
 });
 
 router.delete("/:id", validateSession, (req, res) => {
   const query = { where: { id: req.params.id } };
-  Trip.destroy(query)
+  Rental.destroy(query)
     .then((recordsChanged) => {
       if (recordsChanged !== 0) {
         res.status(200).json({
-          message: "trip deleted!",
+          message: "rental deleted!",
         });
       } else {
         res.status(200).json({
-          message: "trip not found",
+          message: "rental not found",
         });
       }
     })
@@ -41,26 +39,26 @@ router.delete("/:id", validateSession, (req, res) => {
 
 router.put("/:id", validateSession, (req, res) => {
   const query = { where: { id: req.params.id } };
-  const tripEntry = {
-    fromLocation: req.body.trip.fromLocation,
-    toLocation: req.body.trip.toLocation,
-    fromDate: req.body.trip.fromDate,
-    toDate: req.body.trip.toDate,
-    travelType: req.body.trip.travelType,
-    tripType: req.body.trip.tripType,
-    userId: req.user.id
+  const rentalEntry = {
+    agency: req.body.rental.agency,
+    item: req.body.rental.item,
+    startDate: req.body.rental.startDate,
+    endDate: req.body.rental.endDate,
+    TripId: req.body.rental.TripId,
+    ActivityId: req.body.rental.ActivityId,
+    description: req.body.user.description
   };
 
-  Trip.update(tripEntry, query)
+  Rental.update(rentalEntry, query)
     .then((recordsChanged) => {
         console.log(recordsChanged)
       if (recordsChanged[0] !== 0 ) {
         res.status(200).json({
-          message: "trip updated!",
+          message: "rental updated!",
         });
       } else {
         res.status(200).json({
-          message: "trip not found",
+          message: "rental not found",
         });
       }
     })
@@ -69,16 +67,16 @@ router.put("/:id", validateSession, (req, res) => {
 
 router.get("/", validateSession, (req, res) => {
   const query = {where : { userId: req.user.id }}
-  Trip.findAll(query)
-    .then((trips) => res.status(200).json(trips))
+  Rental.findAll(query)
+    .then((rentals) => res.status(200).json(rentals))
     .catch((err) => res.status(500).json({ error: err }));
 });
 
 router.get("/:id", validateSession, (req, res) => {
   const query = { where: { id: req.params.id } };
 
-  Trip.findOne(query)
-    .then((trip) => res.status(200).json(trip))
+  Rental.findOne(query)
+    .then((rental) => res.status(200).json(rental))
     .catch((err) => res.status(500).json({ error: err }));
 });
 

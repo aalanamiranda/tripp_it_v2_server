@@ -10,7 +10,8 @@ router.post('/signup',function(req, res) {
         firstName: req.body.user.firstName,
         lastName: req.body.user.lastName,
         email: req.body.user.email,
-        password: bcrypt.hashSync(req.body.user.password, 13)
+        password: bcrypt.hashSync(req.body.user.password, 13),
+        isAdmin: req.body.user.isAdmin
     })
     .then(
         function createSuccess(user) {
