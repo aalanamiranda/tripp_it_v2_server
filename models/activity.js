@@ -14,15 +14,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: false
         },
-        TripId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            required: false
-        },
         description: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            required: false
+            type: DataTypes.STRING,
+            allowNull: true
         }
     })
     return Activity;

@@ -22,10 +22,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: false
         },
-        tripId: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
         travelMethod: {
             type: DataTypes.STRING,
             allowNull: true

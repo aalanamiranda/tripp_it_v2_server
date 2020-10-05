@@ -9,8 +9,9 @@ app.use(cors());
 let trip = require('./controllers/tripController');
 let user = require('./controllers/userController');
 let activity = require('./controllers/activityController');
+let rental = require('./controllers/rentalController');
 
-sequelize.sync({ force: true });
+sequelize.sync();
 
 app.use(require('./middleware/headers'));
 app.use(express.json());
@@ -19,7 +20,8 @@ app.use(express.json());
 
 app.use('/user', user);
 app.use('/trip', trip);
-//app.use('/activity', activity)
+app.use('/activity', activity);
+app.use('/rental', rental);
 
 app.listen(process.env.PORT, function() {
     console.log(`App is listening on port ${process.env.PORT}`);

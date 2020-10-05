@@ -18,16 +18,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: false
         },
-        TripId: {
-            type: DataTypes.INTEGER,
-            allowNull: true 
-        },
-        AcitivyId: {
-            type: DataTypes.INTEGER,
-            allowNull: true
-        },
         description: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: true
         }
     })

@@ -9,8 +9,9 @@ router.post("/", validateSession, (req, res) => {
     title: req.body.activity.title,
     startDate: req.body.activity.startDate,
     endDate: req.body.activity.endDate,
-    TripId: req.body.activity.TripId,
-    description: req.body.activity.description
+    description: req.body.activity.description,
+    userId: req.user.id,
+    tripId: req.body.activity.tripId
   };
 
   Activity.create(activityEntry)
@@ -41,8 +42,9 @@ router.put("/:id", validateSession, (req, res) => {
     title: req.body.activity.title,
     startDate: req.body.activity.startDate,
     endDate: req.body.activity.endDate,
-    TripId: req.body.activity.TripId,
-    description: req.body.activity.description
+    description: req.body.activity.description,
+    userId: req.user.id,
+    tripId: req.body.tripId
   };
 
   Activity.update(activityEntry, query)
@@ -62,14 +64,17 @@ router.put("/:id", validateSession, (req, res) => {
 });
 
 router.get("/", validateSession, (req, res) => {
-  const query = {where : { userId: req.user.id }}
+  const query = {where : { userId: req.user.id },
+  include: ['trip', 'user']}
+  console.log(req.user.id)
   Activity.findAll(query)
     .then((activitys) => res.status(200).json(activitys))
     .catch((err) => res.status(500).json({ error: err }));
 });
 
 router.get("/:id", validateSession, (req, res) => {
-  const query = { where: { id: req.params.id } };
+  const query = { where: { id: req.params.id },
+  include: ['trip', 'user']};
 
   Activity.findOne(query)
     .then((activity) => res.status(200).json(activity))

@@ -10,9 +10,7 @@ router.post("/", validateSession, (req, res) => {
     item: req.body.rental.item,
     startDate: req.body.rental.startDate,
     endDate: req.body.rental.endDate,
-    TripId: req.body.rental.TripId,
-    ActivityId: req.body.rental.ActivityId,
-    description: req.body.user.description
+    description: req.body.rental.description
   };
 
   Rental.create(rentalEntry)
@@ -44,9 +42,10 @@ router.put("/:id", validateSession, (req, res) => {
     item: req.body.rental.item,
     startDate: req.body.rental.startDate,
     endDate: req.body.rental.endDate,
-    TripId: req.body.rental.TripId,
-    ActivityId: req.body.rental.ActivityId,
-    description: req.body.user.description
+    description: req.body.user.description,
+    userId: req.user.id,
+    tripId: req.body.tripId,
+    activityId: req.body.activityId
   };
 
   Rental.update(rentalEntry, query)
@@ -66,14 +65,16 @@ router.put("/:id", validateSession, (req, res) => {
 });
 
 router.get("/", validateSession, (req, res) => {
-  const query = {where : { userId: req.user.id }}
+  const query = {where : { userId: req.user.id },
+  include: ['trip', 'user', 'activity']}
   Rental.findAll(query)
     .then((rentals) => res.status(200).json(rentals))
     .catch((err) => res.status(500).json({ error: err }));
 });
 
 router.get("/:id", validateSession, (req, res) => {
-  const query = { where: { id: req.params.id } };
+  const query = { where: { id: req.params.id },
+  include: ['trip', 'user', 'activity'] };
 
   Rental.findOne(query)
     .then((rental) => res.status(200).json(rental))

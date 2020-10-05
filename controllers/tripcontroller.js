@@ -14,7 +14,8 @@ router.post("/", validateSession, (req, res) => {
     tripId: req.body.trip.tripId,
     travelMethod: req.body.trip.travelMethod,
     reason: req.body.trip.reason,
-    description: req.body.trip.description
+    description: req.body.trip.description,
+    userId: req.user.id
   };
 
   Trip.create(tripEntry)

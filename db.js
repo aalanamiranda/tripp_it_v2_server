@@ -17,11 +17,26 @@ sequelize.authenticate().then(
 User = sequelize.import('./models/user')
 Trip = sequelize.import('./models/trip')
 Activity = sequelize.import('./models/activity')
+Rental = sequelize.import('./models/rental')
 
+
+Trip.belongsTo(User)
 User.hasMany(Trip, {as: 'Trips'})
+
+Activity.belongsTo(User)
 User.hasMany(Activity, {as: 'Activities'})
-//defining admins ability to associate and control other users under the admin umbrella
-User.belongsToMany(User, { as: 'Client', through: 'ClientAdmin' })
+
+Rental.belongsTo(User)
+User.hasMany(Rental, { as: 'Rentals'})
+
+Rental.belongsTo(Trip)
+Trip.hasMany(Rental, { as: 'Rentals'})
+
+Activity.belongsTo(Trip)
 Trip.hasMany(Activity, {as: 'Activities'})
+
+Rental.belongsTo(Activity)
+Activity.hasMany(Rental, { as: 'Rentals'})
+
 
 module.exports = sequelize;
