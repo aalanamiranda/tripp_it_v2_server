@@ -11,7 +11,6 @@ router.post("/", validateSession, (req, res) => {
     arrivalLoc: req.body.trip.arrivalLoc,
     startDate: req.body.trip.startDate,
     endDate: req.body.trip.endDate,
-    tripId: req.body.trip.tripId,
     travelMethod: req.body.trip.travelMethod,
     reason: req.body.trip.reason,
     description: req.body.trip.description,

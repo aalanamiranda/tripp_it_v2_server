@@ -10,7 +10,10 @@ router.post("/", validateSession, (req, res) => {
     item: req.body.rental.item,
     startDate: req.body.rental.startDate,
     endDate: req.body.rental.endDate,
-    description: req.body.rental.description
+    description: req.body.rental.description,
+    userId: req.user.id,
+    tripId: req.body.rental.tripId,
+    activityId: req.body.rental.activityId
   };
 
   Rental.create(rentalEntry)
@@ -44,8 +47,8 @@ router.put("/:id", validateSession, (req, res) => {
     endDate: req.body.rental.endDate,
     description: req.body.user.description,
     userId: req.user.id,
-    tripId: req.body.tripId,
-    activityId: req.body.activityId
+    tripId: req.body.rental.tripId,
+    activityId: req.body.rental.activityId
   };
 
   Rental.update(rentalEntry, query)

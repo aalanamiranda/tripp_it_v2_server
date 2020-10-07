@@ -44,7 +44,7 @@ router.put("/:id", validateSession, (req, res) => {
     endDate: req.body.activity.endDate,
     description: req.body.activity.description,
     userId: req.user.id,
-    tripId: req.body.tripId
+    tripId: req.body.activity.tripId
   };
 
   Activity.update(activityEntry, query)
