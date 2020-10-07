@@ -42,12 +42,14 @@ router.delete("/:id", validateSession, (req, res) => {
 router.put("/:id", validateSession, (req, res) => {
   const query = { where: { id: req.params.id } };
   const tripEntry = {
-    fromLocation: req.body.trip.fromLocation,
-    toLocation: req.body.trip.toLocation,
-    fromDate: req.body.trip.fromDate,
-    toDate: req.body.trip.toDate,
-    travelType: req.body.trip.travelType,
-    tripType: req.body.trip.tripType,
+    title: req.body.trip.title,
+    departLoc: req.body.trip.departLoc,
+    arrivalLoc: req.body.trip.arrivalLoc,
+    startDate: req.body.trip.startDate,
+    endDate: req.body.trip.endDate,
+    travelMethod: req.body.trip.travelMethod,
+    reason: req.body.trip.reason,
+    description: req.body.trip.description,
     userId: req.user.id
   };
 

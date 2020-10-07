@@ -23,5 +23,5 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true
         }
     })
-    return Activity;
+    return Rental;
 }

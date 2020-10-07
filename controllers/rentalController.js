@@ -45,7 +45,7 @@ router.put("/:id", validateSession, (req, res) => {
     item: req.body.rental.item,
     startDate: req.body.rental.startDate,
     endDate: req.body.rental.endDate,
-    description: req.body.user.description,
+    description: req.body.rental.description,
     userId: req.user.id,
     tripId: req.body.rental.tripId,
     activityId: req.body.rental.activityId
