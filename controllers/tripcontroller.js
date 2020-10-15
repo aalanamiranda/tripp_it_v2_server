@@ -70,14 +70,14 @@ router.put("/:id", validateSession, (req, res) => {
 });
 
 router.get("/", validateSession, (req, res) => {
-  const query = {where : { userId: req.user.id }}
+  const query = {where : { userId: req.user.id }, include: 'user' }
   Trip.findAll(query)
     .then((trips) => res.status(200).json(trips))
     .catch((err) => res.status(500).json({ error: err }));
 });
 
 router.get("/:id", validateSession, (req, res) => {
-  const query = { where: { id: req.params.id } };
+  const query = { where: { id: req.params.id }, include: 'user' };
 
   Trip.findOne(query)
     .then((trip) => res.status(200).json(trip))
